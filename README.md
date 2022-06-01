@@ -1,70 +1,55 @@
-# Getting Started with Create React App
+# This is the SmartCompliance admission test v0.0.1
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<!-- Please read all the tasks before start -->
 
-## Available Scripts
+<!-- TODO: AJAX -->
 
-In the project directory, you can run:
+1. Use the next API to obtain data https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0 this API gives you the data in the subsequent format:
+   data.results = [{
+   name: '',
+   url: '',
+   }, ...]
+   From the url attribute you can fetch the pokemon data, from that data extract the following attributes:
+   types, weight, height, id, name and sprites.
 
-### `npm start`
+2. Now you have the data and its time to use it
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<!-- TODO: TABLES -->
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Modify the previous fetched data to be shown in the table with this columns:
+   .1. Imagen del pokemon (from sprites obtain the front_default sprite)
+   .2. Número en Pokedex
+   .3. Nombre
+   .4. Tipo (Si el pokemon tiene muchos tipos coloque todos los tipos en una lista)
+   .5. Altura
+   .6. Peso
+   .7. Button column to edit a specific pokemon (details in next TODO)
+   .8. Checkbox column that changes the Pokemon to Your Pokemon created in next TODO
+2. Checkout the Table.js in components folder and improve it to:
+.1. When button with id 'search-button' is clicked the search applies
+.2. When row is clicked show all the sprites inside Dialog.js (Refactor Dialog.js to work with this featue) with the next internal structure:
+<div>
+ <figure>
+<img />
+<figcaption><!-- Name of the view, Ex: Vista frontal (masculino) --> </figcaption>
+</figure>
+<!-- ... Others imgs -->
+</div>
+3. Add a button in the table to edit the pokemon attributes, when button is clicked a new route is rendered with the following path "/form/${index_of_pokemon}"
 
-### `npm test`
+<!-- TODO: FORMS -->
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Check the components folders and find:
+   .1. Text.js <!-- optimize this component -->
+   .2. Select.js
+   .3. Checkbox.js
+2. Create a form component to change the pokemon attributes that handles the nexts fields:
+   .1. New name of the pokemon
+   .2. Description of the change
+   .3. New type of the pokemon (you can obtain the options types from here https://pokeapi.co/api/v2/type/)
+   .4. Best teammate of the pokemon: make a selector dependency of the previous selection types of your Pokemon where the options are all the pokemons that match with the selected types
+   .5. New view of the pokemon: make an img selector of the pokemon that shows all the assets and we can select 1 of those.
+3. When this form is rendered set the default values if there is a Pokemon already created for this pokemon (Ex: if we already create an bulbasaur when we click in the row of bulbasour edit button render ours bulbasaur names, description, new types, etc.)
+4. Add a submit button to save your new Pokemon.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<!-- TODO: CSS TIME -->
