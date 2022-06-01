@@ -32,7 +32,7 @@ function createData(name, calories, fat, carbs, protein) {
   };
 }
 
-const rows = [
+const defaultRows = [
   createData("Cupcake", 305, 3.7, 67, 4.3),
   createData("Donut", 452, 25.0, 51, 4.9),
   createData("Eclair", 262, 16.0, 24, 6.0),
@@ -77,37 +77,52 @@ function stableSort(array, comparator) {
   });
   return stabilizedThis.map((el) => el[0]);
 }
+// * This constant could be helpful to know if you have a Pokemon
+const createdPokemon = [
+  "my_name",
+  "my_description",
+  "my_types",
+  "my_teammates",
+  "my_sprite",
+];
 
 const headCells = [
   {
+    id: "html_image",
+    label: "Foto",
+    idCreated: "html_my_sprite",
+  },
+  {
+    id: "id_pokemon",
+    label: "Número en Pokedex",
+  },
+  {
     id: "name",
-    numeric: false,
-    disablePadding: true,
-    label: "Dessert (100g serving)",
+    label: "Nombre",
+    idCreated: "my_name",
   },
   {
-    id: "calories",
-    numeric: true,
-    disablePadding: false,
-    label: "Calories",
+    id: "html_types",
+    label: "Tipos",
+    idCreated: "html_my_types",
   },
   {
-    id: "fat",
-    numeric: true,
-    disablePadding: false,
-    label: "Fat (g)",
+    id: "teammates",
+    label: "Amigos",
+    idCreated: "html_my_teammates",
   },
   {
-    id: "carbs",
-    numeric: true,
-    disablePadding: false,
-    label: "Carbs (g)",
+    id: "height",
+    label: "Altura",
   },
   {
-    id: "protein",
-    numeric: true,
-    disablePadding: false,
-    label: "Protein (g)",
+    id: "weight",
+    label: "Peso",
+  },
+  {
+    id: "description",
+    label: "Descripcion",
+    idCreated: "my_description",
   },
 ];
 
@@ -206,7 +221,7 @@ const EnhancedTableToolbar = (props) => {
           id="tableTitle"
           component="div"
         >
-          Nutrition
+          POKEMONS
         </Typography>
       )}
 
@@ -231,7 +246,9 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function EnhancedTable() {
+export default function EnhancedTable(props) {
+  const { rowsProp, handleEditButton } = props;
+  const [rows, setRows] = React.useState(rowsProp || defaultRows);
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -253,6 +270,8 @@ export default function EnhancedTable() {
     }
     setSelected([]);
   };
+
+  React.useEffect(() => {}, [JSON.stringify(rowsProp)]);
 
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
@@ -323,7 +342,9 @@ export default function EnhancedTable() {
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => {
+                        handleClick(event, row.name);
+                      }}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
@@ -331,14 +352,12 @@ export default function EnhancedTable() {
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
-                        <Checkbox
-                          color="primary"
-                          checked={isItemSelected}
-                          inputProps={{
-                            "aria-labelledby": labelId,
-                          }}
-                        />
+                        <Checkbox color="primary" checked={isItemSelected} />
+                        <TableCell padding="checkbox">
+                          <button onClick={handleEditButton(row)}>Edit</button>
+                        </TableCell>
                       </TableCell>
+
                       <TableCell
                         component="th"
                         id={labelId}
