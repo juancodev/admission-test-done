@@ -1,4 +1,5 @@
 import React from "react";
+import { LabelDefaultValueProps } from "../types/types";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -32,18 +33,27 @@ const names = [
   "Kelly Snyder",
 ];
 
-function getStyles(name, personName, theme) {
+function getStyles(
+  name: string,
+  personName: Array<unknown>,
+  theme: {
+    typography: { fontWeightRegular: string; fontWeightMedium: string };
+  }
+) {
   return {
     fontWeight:
-      personName.indexOf(name) === -1
+      personName?.indexOf(name) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
   };
 }
 
-export default function Select() {
+export default function SelectComponent({
+  label,
+  defaultValue,
+}: LabelDefaultValueProps): JSX.Element {
   const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
+  const [personName, setPersonName] = React.useState<[]>([]);
 
   const handleChange = (event) => {
     const {
@@ -54,6 +64,8 @@ export default function Select() {
       typeof value === "string" ? value.split(",") : value
     );
   };
+
+  console.log(label, defaultValue);
 
   return (
     <div>

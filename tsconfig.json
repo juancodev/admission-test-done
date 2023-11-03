@@ -1,0 +1,39 @@
+/**
+ * Configuration file for TypeScript compiler.
+ *
+ * The `compilerOptions` object contains various options for the compiler, such as target language version,
+ * module system, and output directory.
+ *
+ * The `include` and `exclude` arrays specify which files should be included or excluded from compilation.
+ *
+ * The `extends` property allows you to inherit settings from another configuration file.
+ *
+ * For more information, see https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
+ */
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "outDir": "dist",
+    "allowJs": true,
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+  },
+  "include": [
+    "src/**/*",
+    "types/**/*",
+    "**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

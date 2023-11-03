@@ -2,9 +2,7 @@ import React from "react";
 import EnhancedTable from "../components/Table";
 import { useNavigate } from "react-router-dom";
 
-export default function Home(props) {
-  const { tableRows } = props;
-
+export default function Home({ tableRows }) {
   const navigate = useNavigate();
 
   const handleEditButton = (row) => (e) => {

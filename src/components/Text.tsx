@@ -1,8 +1,11 @@
-import React from "react";
 import Box from "@mui/material/Box";
+import { LabelDefaultValueProps } from "../types/types";
 import TextField from "@mui/material/TextField";
 
-export default function Text() {
+export default function Text({
+  label,
+  defaultValue,
+}: LabelDefaultValueProps): JSX.Element {
   return (
     <Box
       component="form"
@@ -16,8 +19,8 @@ export default function Text() {
         <TextField
           // error
           // id="standard-error-helper-text"
-          label="Error"
-          defaultValue="Hello World"
+          label={label}
+          defaultValue={defaultValue || "Value Default"}
           helperText="Incorrect entry."
           variant="standard"
           // rows={5}
