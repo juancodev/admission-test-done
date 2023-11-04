@@ -22,7 +22,21 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 
-function createData(name, calories, fat, carbs, protein) {
+type HeadCells = {
+  id: string;
+  label: string;
+  idCreated?: string;
+  numeric?: string;
+  disablePadding?: string;
+};
+
+function createData(
+  name: string,
+  calories: number,
+  fat: number,
+  carbs: number,
+  protein: number
+) {
   return {
     name,
     calories,
@@ -48,7 +62,11 @@ const defaultRows = [
   createData("Oreo", 437, 18.0, 63, 4.0),
 ];
 
-function descendingComparator(a, b, orderBy) {
+function descendingComparator(
+  a: Array<[]>,
+  b: Array<[]>,
+  orderBy: string | number
+) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
   }
@@ -58,17 +76,20 @@ function descendingComparator(a, b, orderBy) {
   return 0;
 }
 
-function getComparator(order, orderBy) {
+function getComparator(order: string, orderBy: string | number) {
   return order === "desc"
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
+    ? (a: number[], b: number[]) => descendingComparator(a, b, orderBy)
+    : (a: number[], b: number[]) => -descendingComparator(a, b, orderBy);
 }
 
 // This method is created for cross-browser compatibility, if you don't
 // need to support IE11, you can use Array.prototype.sort() directly
-function stableSort(array, comparator) {
+function stableSort(
+  array: [],
+  comparator: (a: string | number, b: string | number) => string | number
+) {
   const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
+  stabilizedThis.sort((a: number[], b: number[]) => {
     const order = comparator(a[0], b[0]);
     if (order !== 0) {
       return order;
@@ -78,7 +99,7 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 // * This constant could be helpful to know if you have a Pokemon
-const createdPokemon = [
+const createdPokemon: string[] = [
   "my_name",
   "my_description",
   "my_types",
@@ -153,7 +174,7 @@ function EnhancedTableHead(props) {
             }}
           />
         </TableCell>
-        {headCells.map((headCell) => (
+        {headCells.map((headCell: HeadCells) => (
           <TableCell
             key={headCell.id}
             align={headCell.numeric ? "right" : "left"}
@@ -273,16 +294,16 @@ export default function EnhancedTable(props) {
 
   React.useEffect(() => {}, [JSON.stringify(rowsProp)]);
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleClick = (event, name: string) => {
+    const selectedIndex = selected?.indexOf(name);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected?.concat(selected, name);
     } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
+      newSelected = newSelected?.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
+      newSelected = newSelected?.concat(selected.slice(0, -1));
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
